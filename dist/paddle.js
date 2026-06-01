@@ -30,6 +30,9 @@ class Paddle {
             this.y += this.speed;
         }
     }
+    getPosition() {
+        return { x: this.x, y: this.y };
+    }
     draw() {
         raylib_1.default.DrawRectangle(this.x, this.y, this.width, this.height, raylib_1.default.WHITE);
     }

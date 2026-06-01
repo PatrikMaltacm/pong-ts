@@ -8,6 +8,10 @@ export declare class Paddle {
     constructor(x: number, speed: number, screenHeight: number);
     moveUp(): void;
     moveDown(): void;
+    getPosition(): {
+        x: number;
+        y: number;
+    };
     draw(): void;
 }
 //# sourceMappingURL=paddle.d.ts.map
