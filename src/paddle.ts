@@ -29,6 +29,10 @@ export class Paddle {
         }
     }
 
+    getPosition(): { x: number, y: number } {
+        return { x: this.x, y: this.y };
+    }
+
     draw(): void {
         raylib.DrawRectangle(this.x, this.y, this.width, this.height, raylib.WHITE);
     }
