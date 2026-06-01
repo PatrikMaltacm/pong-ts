@@ -1,13 +1,26 @@
-
+import raylib from 'raylib';
 
 export class Paddle{
-    x: number;
     y: number;
     speed: number;
 
-    constructor(x: number, y: number, speed: number){
-        this.x = x,
-        this.y = y;
+    constructor(speed: number){
+        this.y = 0;
         this.speed = speed;
     }
-}
+
+    moveUp(): void{
+        this.y -= this.speed;
+    }
+    moveDown(): void{
+        this.y += this.speed;
+    }
+
+    getPosition(): number {
+        return this.y;
+    }
+
+    draw(): void{
+        raylib.DrawRectangle(0, this.y, 20, 60, raylib.BLACK);
+    }
+} 

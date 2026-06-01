@@ -1,4 +1,5 @@
-import raylib from 'raylib';
+import raylib, { KEY_DOWN, KEY_UP } from 'raylib';
+import { Paddle } from './paddle';
 
 export class Game {
     windowWidth: number;
@@ -6,11 +7,26 @@ export class Game {
     windowTitle: string;
     gameFPSTarget: number;
 
+    paddleOne: Paddle;
+
     constructor(windowWidth: number, windowHeight: number, windowTitle: string, gameFPSTarget: number) {
         this.windowWidth = windowWidth,
             this.windowHeight = windowHeight,
             this.windowTitle = windowTitle,
             this.gameFPSTarget = gameFPSTarget
+            this.paddleOne = new Paddle(6);
+    }
+
+    update(): void{
+        if(raylib.IsKeyDown(KEY_UP) && this.paddleOne.getPosition() > 0){
+            console.log(this.paddleOne.getPosition() );
+            this.paddleOne.moveUp()
+        }
+        if(raylib.IsKeyDown(KEY_DOWN) && this.paddleOne.getPosition() < 395){
+            console.log(this.paddleOne.getPosition() );
+
+            this.paddleOne.moveDown()
+        }
     }
 
     initGame(): void {
@@ -18,9 +34,11 @@ export class Game {
         raylib.SetTargetFPS(this.gameFPSTarget);
 
         while (!raylib.WindowShouldClose()) {
+            this.update();
+
             raylib.BeginDrawing();
             raylib.ClearBackground(raylib.RAYWHITE);
-            raylib.DrawText("node-raylib funciona!", 190, 200, 20, raylib.LIGHTGRAY);
+            this.paddleOne.draw();
             raylib.EndDrawing();
         }
 
