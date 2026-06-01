@@ -1,4 +1,4 @@
-import raylib, { KEY_DOWN, KEY_UP } from 'raylib';
+import raylib, { KEY_DOWN, KEY_S, KEY_UP, KEY_W } from 'raylib';
 import { Paddle } from './paddle';
 
 export class Game {
@@ -6,26 +6,32 @@ export class Game {
     windowHeight: number;
     windowTitle: string;
     gameFPSTarget: number;
-
     paddleOne: Paddle;
+    paddleTwo: Paddle;
 
     constructor(windowWidth: number, windowHeight: number, windowTitle: string, gameFPSTarget: number) {
-        this.windowWidth = windowWidth,
-            this.windowHeight = windowHeight,
-            this.windowTitle = windowTitle,
-            this.gameFPSTarget = gameFPSTarget
-            this.paddleOne = new Paddle(6);
+        this.windowWidth = windowWidth;
+        this.windowHeight = windowHeight;
+        this.windowTitle = windowTitle;
+        this.gameFPSTarget = gameFPSTarget;
+
+        this.paddleOne = new Paddle(10, 6, windowHeight);
+        this.paddleTwo = new Paddle(windowWidth - 30, 6, windowHeight);
     }
 
-    update(): void{
-        if(raylib.IsKeyDown(KEY_UP) && this.paddleOne.getPosition() > 0){
-            console.log(this.paddleOne.getPosition() );
-            this.paddleOne.moveUp()
+    update(): void {
+        if (raylib.IsKeyDown(KEY_UP)) {
+            this.paddleOne.moveUp();
         }
-        if(raylib.IsKeyDown(KEY_DOWN) && this.paddleOne.getPosition() < 395){
-            console.log(this.paddleOne.getPosition() );
+        if (raylib.IsKeyDown(KEY_DOWN)) {
+            this.paddleOne.moveDown();
+        }
 
-            this.paddleOne.moveDown()
+        if (raylib.IsKeyDown(KEY_W)) {
+            this.paddleTwo.moveUp();
+        }
+        if (raylib.IsKeyDown(KEY_S)) {
+            this.paddleTwo.moveDown();
         }
     }
 
@@ -37,8 +43,9 @@ export class Game {
             this.update();
 
             raylib.BeginDrawing();
-            raylib.ClearBackground(raylib.RAYWHITE);
+            raylib.ClearBackground(raylib.BLACK);
             this.paddleOne.draw();
+            this.paddleTwo.draw();
             raylib.EndDrawing();
         }
 
