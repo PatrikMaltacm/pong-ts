@@ -42,21 +42,27 @@ class Game {
     windowTitle;
     gameFPSTarget;
     paddleOne;
+    paddleTwo;
     constructor(windowWidth, windowHeight, windowTitle, gameFPSTarget) {
-        this.windowWidth = windowWidth,
-            this.windowHeight = windowHeight,
-            this.windowTitle = windowTitle,
-            this.gameFPSTarget = gameFPSTarget;
-        this.paddleOne = new paddle_1.Paddle(6);
+        this.windowWidth = windowWidth;
+        this.windowHeight = windowHeight;
+        this.windowTitle = windowTitle;
+        this.gameFPSTarget = gameFPSTarget;
+        this.paddleOne = new paddle_1.Paddle(10, 6, windowHeight);
+        this.paddleTwo = new paddle_1.Paddle(windowWidth - 30, 6, windowHeight);
     }
     update() {
-        if (raylib_1.default.IsKeyDown(raylib_1.KEY_UP) && this.paddleOne.getPosition() > 0) {
-            console.log(this.paddleOne.getPosition());
+        if (raylib_1.default.IsKeyDown(raylib_1.KEY_UP)) {
             this.paddleOne.moveUp();
         }
-        if (raylib_1.default.IsKeyDown(raylib_1.KEY_DOWN) && this.paddleOne.getPosition() < 395) {
-            console.log(this.paddleOne.getPosition());
+        if (raylib_1.default.IsKeyDown(raylib_1.KEY_DOWN)) {
             this.paddleOne.moveDown();
+        }
+        if (raylib_1.default.IsKeyDown(raylib_1.KEY_W)) {
+            this.paddleTwo.moveUp();
+        }
+        if (raylib_1.default.IsKeyDown(raylib_1.KEY_S)) {
+            this.paddleTwo.moveDown();
         }
     }
     initGame() {
@@ -65,8 +71,9 @@ class Game {
         while (!raylib_1.default.WindowShouldClose()) {
             this.update();
             raylib_1.default.BeginDrawing();
-            raylib_1.default.ClearBackground(raylib_1.default.RAYWHITE);
+            raylib_1.default.ClearBackground(raylib_1.default.BLACK);
             this.paddleOne.draw();
+            this.paddleTwo.draw();
             raylib_1.default.EndDrawing();
         }
         raylib_1.default.CloseWindow();

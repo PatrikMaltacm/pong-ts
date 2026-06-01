@@ -6,23 +6,32 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Paddle = void 0;
 const raylib_1 = __importDefault(require("raylib"));
 class Paddle {
+    x;
     y;
     speed;
-    constructor(speed) {
-        this.y = 0;
+    height;
+    width;
+    screenHeight;
+    constructor(x, speed, screenHeight) {
+        this.x = x;
+        this.y = screenHeight / 2 - 30;
         this.speed = speed;
+        this.height = 60;
+        this.width = 20;
+        this.screenHeight = screenHeight;
     }
     moveUp() {
-        this.y -= this.speed;
+        if (this.y > 0) {
+            this.y -= this.speed;
+        }
     }
     moveDown() {
-        this.y += this.speed;
-    }
-    getPosition() {
-        return this.y;
+        if (this.y + this.height < this.screenHeight) {
+            this.y += this.speed;
+        }
     }
     draw() {
-        raylib_1.default.DrawRectangle(0, this.y, 20, 60, raylib_1.default.BLACK);
+        raylib_1.default.DrawRectangle(this.x, this.y, this.width, this.height, raylib_1.default.WHITE);
     }
 }
 exports.Paddle = Paddle;

@@ -5,6 +5,7 @@ export declare class Game {
     windowTitle: string;
     gameFPSTarget: number;
     paddleOne: Paddle;
+    paddleTwo: Paddle;
     constructor(windowWidth: number, windowHeight: number, windowTitle: string, gameFPSTarget: number);
     update(): void;
     initGame(): void;
